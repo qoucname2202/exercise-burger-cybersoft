@@ -2,6 +2,39 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Menu extends Component {
+	renderTableMenu() {
+		let { menu, burger } = this.props.stateBurger;
+		return Object.entries(menu).map((item, idx) => {
+			let [name, price] = item;
+			let amount = burger[name];
+			return (
+				<tr key={idx}>
+					<th>{name}</th>
+					<td>
+						<button className='btn btn-success me-2'>
+							<i className='fa-solid fa-plus'></i>
+						</button>
+						<span>{amount}</span>
+						<button className='btn btn-danger ms-2'>
+							<i className='fa-solid fa-minus'></i>
+						</button>
+					</td>
+					<td>{price}</td>
+					<td>{amount * price}</td>
+				</tr>
+			);
+		});
+	}
+	// Caculator price
+	calcMoney = () => {
+		let { menu, burger } = this.props.stateBurger;
+		let sum = Object.entries(menu).reduce((total, item) => {
+			let [name, price] = item;
+			let amount = Number(burger[name]);
+			return (total += amount * Number(price));
+		}, 0);
+		return sum;
+	};
 	render() {
 		return (
 			<div className='menu mt-4'>
@@ -15,27 +48,12 @@ class Menu extends Component {
 							<th scope='col'>Thành tiền</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<th>salad</th>
-							<td>
-								<button className='btn btn-success me-2'>
-									<i className='fa-solid fa-plus'></i>
-								</button>
-								<span>4</span>
-								<button className='btn btn-danger ms-2'>
-									<i className='fa-solid fa-minus'></i>
-								</button>
-							</td>
-							<td>10</td>
-							<td>40</td>
-						</tr>
-					</tbody>
+					<tbody>{this.renderTableMenu()}</tbody>
 					<tfoot>
 						<tr>
 							<td></td>
 							<td colSpan={2}>Tổng cộng:</td>
-							<td>190</td>
+							<td>{this.calcMoney()}</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -44,6 +62,8 @@ class Menu extends Component {
 	}
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+	stateBurger: state.burgerReducer,
+});
 
 export default connect(mapStateToProps)(Menu);

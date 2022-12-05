@@ -1,8 +1,8 @@
 const initialState = {
 	burger: {
 		salad: 1,
-		cheese: 1,
-		beef: 1,
+		cheese: 2,
+		beef: 2,
 	},
 	menu: {
 		salad: 10,
