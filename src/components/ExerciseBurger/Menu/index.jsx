@@ -16,7 +16,10 @@ class Menu extends Component {
 							onClick={() => {
 								const action = {
 									type: 'ORDER_AMOUNT_BURGER',
-									payload: true,
+									payload: {
+										name,
+										amount: 1,
+									},
 								};
 								this.props.dispatch(action);
 							}}
@@ -29,7 +32,10 @@ class Menu extends Component {
 							onClick={() => {
 								const action = {
 									type: 'ORDER_AMOUNT_BURGER',
-									payload: false,
+									payload: {
+										name,
+										amount: -1,
+									},
 								};
 								this.props.dispatch(action);
 							}}
@@ -71,7 +77,7 @@ class Menu extends Component {
 						<tr>
 							<td></td>
 							<td colSpan={2}>Tổng cộng:</td>
-							<td>{this.calcMoney()}</td>
+							<td>{this.calcMoney()}$</td>
 						</tr>
 					</tfoot>
 				</table>

@@ -1,8 +1,8 @@
 const initialState = {
 	burger: {
-		salad: 1,
-		cheese: 2,
-		beef: 1,
+		salad: 0,
+		cheese: 0,
+		beef: 0,
 	},
 	menu: {
 		salad: 10,
@@ -13,7 +13,15 @@ const initialState = {
 export const burgerReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case 'ORDER_AMOUNT_BURGER': {
-			return { ...state };
+			let { name, amount } = action.payload;
+			let newState = { ...state };
+			let burgerClone = { ...newState.burger };
+			if (amount === -1 && state.burger[name] < 1) {
+				return { ...state };
+			}
+			burgerClone[name] += amount;
+			newState.burger = burgerClone;
+			return { ...newState };
 		}
 		default:
 			return { ...state };
