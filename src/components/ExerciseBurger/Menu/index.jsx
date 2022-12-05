@@ -11,11 +11,29 @@ class Menu extends Component {
 				<tr key={idx}>
 					<th>{name}</th>
 					<td>
-						<button className='btn btn-success me-2'>
+						<button
+							className='btn btn-success me-2'
+							onClick={() => {
+								const action = {
+									type: 'ORDER_AMOUNT_BURGER',
+									payload: true,
+								};
+								this.props.dispatch(action);
+							}}
+						>
 							<i className='fa-solid fa-plus'></i>
 						</button>
 						<span>{amount}</span>
-						<button className='btn btn-danger ms-2'>
+						<button
+							className='btn btn-danger ms-2'
+							onClick={() => {
+								const action = {
+									type: 'ORDER_AMOUNT_BURGER',
+									payload: false,
+								};
+								this.props.dispatch(action);
+							}}
+						>
 							<i className='fa-solid fa-minus'></i>
 						</button>
 					</td>
